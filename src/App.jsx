@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { Button, MenuItem, Select } from "@mui/material";
 import products from "./data/data.js";
-import { MenuItem, Select } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+const BlackButton = styled(Button)({
+  color: "#000000",
+  backgroundColor: "#ffffff",
+  "&:hover": {
+    backgroundColor: "#eeeeee",
+  },
+  padding: "0.5rem 1rem",
+  boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
+});
 
 const App = () => {
-  const [categoryFilter, setCategoryFilter] = useState("Recommended"); // Set initial value to "Recommended"
-  const [sortOption, setSortOption] = useState("Sort"); // Set initial value to "Sort"
+  const [categoryFilter, setCategoryFilter] = useState("Recommended");
+  const [sortOption, setSortOption] = useState("Sort");
   const [productImages, setProductImages] = useState({});
+  const [visibleProducts, setVisibleProducts] = useState(2);
+  const productsPerPage = 2;
 
   const handleCategoryFilterChange = (event) => {
     setCategoryFilter(event.target.value);
@@ -41,9 +54,13 @@ const App = () => {
     sortedProducts = sortedProducts.sort((a, b) => b.price - a.price);
   }
 
+  const handleLoadMore = () => {
+    setVisibleProducts((prevVisible) => prevVisible + productsPerPage);
+  };
+
   return (
     <>
-      <div className="flex justify-center items-center space-x-4">
+      <div className="flex justify-center items-center space-x-4 my-4">
         <Select value={categoryFilter} onChange={handleCategoryFilterChange}>
           <MenuItem value="Recommended">Recommended</MenuItem>
           <MenuItem value="Keyboard">Keyboard</MenuItem>
@@ -57,7 +74,7 @@ const App = () => {
       </div>
       <div className="flex flex-col items-center mt-6">
         <ul className="grid grid-cols-2 gap-1 w-full">
-          {sortedProducts.map((product) => (
+          {sortedProducts.slice(0, visibleProducts).map((product) => (
             <li key={product.id} className="flex flex-col items-center">
               <img
                 src={productImages[product.id]}
@@ -71,6 +88,11 @@ const App = () => {
             </li>
           ))}
         </ul>
+        {visibleProducts < sortedProducts.length && (
+          <div className="mt-4">
+            <BlackButton onClick={handleLoadMore}>Load More</BlackButton>
+          </div>
+        )}
       </div>
     </>
   );

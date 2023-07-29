@@ -12,9 +12,9 @@ export default {
     },
     extend: {
       colors: {
-        white: "var(--white-color)",
-        blue: "var(--blue-color)",
         "red-custom": "#fc0000",
+        "white-custom": "#ffffff",
+        "black-custom": "#000000",
       },
     },
     fontFamily: {
