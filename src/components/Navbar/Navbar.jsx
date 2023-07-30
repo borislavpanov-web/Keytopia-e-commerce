@@ -1,20 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MenuItem, Button, Menu, IconButton } from "@mui/material";
 import { AccountCircle, Menu as MenuIcon } from "@mui/icons-material";
 import keytopiaLogo from "../../assets/keytopia-logo.png";
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isNavbarBlurred, setNavbarBlurred] = useState(false);
+
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setNavbarBlurred(scrollPosition > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <>
+    <div
+      className={`sticky top-0 z-50 bg-white ${
+        isNavbarBlurred ? "backdrop-blur-md" : ""
+      }`}
+      style={{ boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)" }}
+    >
       <div className="flex items-center justify-between">
         <div>
           <Button
@@ -58,7 +79,7 @@ const Navbar = () => {
         </div>
       </div>
       <hr className="my-2 border-black" />
-    </>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, MenuItem, Select } from "@mui/material";
-import products from "./data/data.js";
 import { styled } from "@mui/material/styles";
+import products from "./data/data.js";
 
 const BlackButton = styled(Button)({
   color: "#000000",
@@ -28,11 +28,33 @@ const App = () => {
     setSortOption(event.target.value);
   };
 
+  const shuffleArray = (array) => {
+    const shuffledArray = array.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
+  };
+
   useEffect(() => {
     const loadProductImages = async () => {
       const images = {};
       for (const product of products) {
-        const imageModule = await import(`./assets/image${product.id}.jpg`);
+        const imageExtension = product.imageType === "jpg" ? "jpg" : "png";
+        if (product.category === "Switches") {
+          const imageModule = await import(
+            `./assets/MXSwitches/${product.name}.${imageExtension}`
+          );
+          images[product.id] = imageModule.default;
+          continue;
+        }
+        const imageModule = await import(
+          `./assets/image${product.id}.${imageExtension}`
+        );
         images[product.id] = imageModule.default;
       }
       setProductImages(images);
@@ -64,6 +86,7 @@ const App = () => {
         <Select value={categoryFilter} onChange={handleCategoryFilterChange}>
           <MenuItem value="Recommended">Recommended</MenuItem>
           <MenuItem value="Keyboard">Keyboard</MenuItem>
+          <MenuItem value="Switches">Switches</MenuItem>
         </Select>
 
         <Select value={sortOption} onChange={handleSortOptionChange}>
