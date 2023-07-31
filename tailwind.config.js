@@ -9,6 +9,7 @@ export default {
     screens: {
       xs: "475px",
       ...defaultTheme.screens,
+      sm: { max: "639px" },
     },
     extend: {
       colors: {
