@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { connect } from "react-redux";
 import { MenuItem, Select } from "@mui/material";
 import { Favorite as FavoriteIcon } from "@mui/icons-material";
-import CustomButton from "./MuiStyles/MuiStyles.jsx";
+import { CustomButton } from "./MuiStyles/MuiStyles.jsx";
+import { setVisibleProducts } from "./store/actions.js";
 import products from "./data/data.js";
 
-const App = () => {
+const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [sortOption, setSortOption] = useState("Sort");
   const [sortAlphabetical, setSortAlphabetical] = useState("Sort");
   const [productImages, setProductImages] = useState({});
-  const [visibleProducts, setVisibleProducts] = useState(2);
   const [favorites, setFavorites] = useState([]);
   const [filtersApplied, setFiltersApplied] = useState(false);
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const App = () => {
   }
 
   const handleLoadMore = () => {
-    setVisibleProducts((prevVisible) => prevVisible + productsPerPage);
+    dispatchSetVisibleProducts(visibleProducts + productsPerPage);
   };
 
   useEffect(() => {
@@ -117,7 +118,6 @@ const App = () => {
           <MenuItem value="Keyboard">Keyboard</MenuItem>
           <MenuItem value="Switches">Switches</MenuItem>
         </Select>
-
         <Select
           value={sortOption}
           onChange={handleSortOptionChange}
@@ -127,7 +127,6 @@ const App = () => {
           <MenuItem value="priceLowToHigh">Price: Low to High</MenuItem>
           <MenuItem value="priceHighToLow">Price: High to Low</MenuItem>
         </Select>
-
         <Select
           value={sortAlphabetical}
           onChange={handleSortAlphabeticalChange}
@@ -174,8 +173,8 @@ const App = () => {
                   onClick={() => toggleFavorite(product.id)}
                 />
               </div>
-              <p className="text-center">
-                {product.name} -{" "}
+              <p className="flex flex-col text-center">
+                {product.name}
                 <span className="text-red-custom">${product.price}</span>
               </p>
             </li>
@@ -191,4 +190,14 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    visibleProducts: state.visibleProducts,
+  };
+};
+
+const mapDispatchToProps = {
+  dispatchSetVisibleProducts: setVisibleProducts,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

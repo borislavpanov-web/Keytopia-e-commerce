@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import store from "./store/store.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./App.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
@@ -21,11 +23,13 @@ const MainContent = () => (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/" element={<MainContent />} />
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/" element={<MainContent />} />
+        </Routes>
+      </Router>
+    </Provider>
   </React.StrictMode>,
 );

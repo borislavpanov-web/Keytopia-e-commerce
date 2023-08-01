@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
 import useEventListener from "./useEventListener.jsx";
 import products from "../../data/data.js";
 
-const PreviewPage = () => {
+const PreviewPage = ({ visibleProducts }) => {
   const [switchImages, setSwitchImages] = useState([]);
   const switchTypes = ["Brown", "Green", "Clear", "Blue", "Red", "Black"];
   const sliderRef = useRef(null);
@@ -80,8 +81,9 @@ const PreviewPage = () => {
       <hr className="my-2 border-black" />
       <div className="flex flex-col justify-start w-1/2 ml-4 my-4">
         <h1 className="text-2xl font-normal">Keyboards</h1>
-        <h2 className="text-gray-500">{products.length} Products</h2>
-        <p></p>
+        <h2 className="text-gray-500">
+          {visibleProducts} out of {products.length} Products
+        </h2>
       </div>
       <hr className="my-2 border-black" />
     </>
@@ -90,4 +92,10 @@ const PreviewPage = () => {
 
 const MOBILE_BREAKPOINT = 768;
 
-export default PreviewPage;
+const mapStateToProps = (state) => {
+  return {
+    visibleProducts: state.visibleProducts,
+  };
+};
+
+export default connect(mapStateToProps)(PreviewPage);

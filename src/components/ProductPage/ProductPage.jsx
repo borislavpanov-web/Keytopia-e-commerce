@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { IconButton } from "@mui/material";
+import { IconButton, Rating } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 import Footer from "../Footer/Footer.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
+import { AddToCartButton } from "../../MuiStyles/MuiStyles.jsx";
 import products from "../../data/data.js";
 
 const ProductPage = () => {
   let { id } = useParams();
   id = Number(id);
   const [productImage, setProductImage] = useState(null);
+  const [value, setValue] = useState(2);
+
+  const product = products.find((product) => product.id === id);
 
   const handleAddToCart = () => {
     console.log(`Product with ID ${id} added to the cart.`);
   };
 
   useEffect(() => {
-    const product = products.find((product) => product.id === id);
     if (product.category === "Switches" && product.id === id) {
-      console.log(product.id);
       import(`../../assets/MXSwitches/${product.name}.png`)
         .then((imageModule) => {
           setProductImage(imageModule.default);
@@ -42,12 +44,45 @@ const ProductPage = () => {
   return (
     <>
       <Navbar />
-      <div>
-        <h1>Product Page</h1>
-        {productImage && <img src={productImage} alt="Product" />}
-        <IconButton onClick={handleAddToCart}>
-          <ShoppingCart style={{ color: "black" }} />
-        </IconButton>
+      <div className="w-full px-4 sm:px-6 md:px-10 lg:px-8 max-w-screen-lg mx-auto">
+        <div className="w-full flex flex-col items-center justify-center py-6 sm:py-8 lg:py-10">
+          {productImage && (
+            <img
+              src={productImage}
+              alt="Product"
+              className="max-w-1/2 h-auto"
+            />
+          )}
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            className="mt-4"
+          />
+          <h1 className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-2xl">
+            {product.name}
+          </h1>
+          <h2 className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-2xl text-red-custom">
+            {product.price} $
+          </h2>
+          <p className="mt-4 w-2/3 text-center whitespace-pre-line">
+            {product.description}
+          </p>
+        </div>
+        <div className="flex flex-col justify-center items-center py-4 sm:py-6 sm:px-24 md:px-36 lg:py-8 lg:px-40">
+          <AddToCartButton
+            variant="contained"
+            color="primary"
+            className="w-full max-w-2/3 sm:max-w-full md:max-w-2/3"
+          >
+            Add to Cart
+            <IconButton onClick={handleAddToCart}>
+              <ShoppingCart style={{ color: "white" }} />
+            </IconButton>
+          </AddToCartButton>
+        </div>
       </div>
       <Footer />
     </>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { MenuItem, Button, Menu, IconButton } from "@mui/material";
 import { AccountCircle, Menu as MenuIcon } from "@mui/icons-material";
 import keytopiaLogo from "../../assets/keytopia-logo.png";
@@ -6,8 +7,8 @@ import keytopiaLogo from "../../assets/keytopia-logo.png";
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isNavbarBlurred, setNavbarBlurred] = useState(false);
-
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -15,6 +16,7 @@ const Navbar = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    navigate("/");
   };
 
   useEffect(() => {
@@ -62,15 +64,14 @@ const Navbar = () => {
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleClose}>Main Page</MenuItem>
           </Menu>
         </div>
         <img
           src={keytopiaLogo}
           alt="keytopiaLogo"
-          className="w-28 rounded-3xl mt-2 ml-2"
+          className="w-28 rounded-3xl mt-2 ml-2 hover:cursor-pointer"
+          onClick={() => navigate("/")}
         />
         <div className="mr-2">
           <IconButton>
