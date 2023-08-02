@@ -1,8 +1,18 @@
-# React + Vite
+# E-Commerce Website For Mechnical Keyboards
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+E-Commerce Website Built By Borislav Panov
 
-Currently, two official plugins are available:
+# Design
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Front Page
+![frontpage](https://i.imgur.com/SLPyKC9.png)
+## Search Box
+![searchbox](https://i.imgur.com/gJymwVS.png)
+## Load More
+![loadmore](https://i.imgur.com/angiTvM.png)
+## Product Page
+![productpage](https://i.imgur.com/9jmVnHQ.png)
+## Mobile Front Page
+![mobilefrontpage](https://i.imgur.com/DGyr25S.png)
+## Mobile Product Page
+![mobileproductpage](https://i.imgur.com/IUY4CGo.png)
