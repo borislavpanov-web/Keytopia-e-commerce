@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const CustomButton = styled(Button)({
   color: "#000000",
@@ -27,4 +27,24 @@ const AddToCartButton = styled(Button)({
   gap: "0.5rem",
 });
 
-export { CustomButton, AddToCartButton };
+const SearchField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "#000000",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#000000",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#000000",
+    },
+    "&:hover fieldset": {
+      borderColor: "#000000",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#000000",
+    },
+  },
+});
+
+export { CustomButton, AddToCartButton, SearchField };

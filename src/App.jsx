@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { connect } from "react-redux";
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem, Rating, Select } from "@mui/material";
 import { Favorite as FavoriteIcon } from "@mui/icons-material";
 import { CustomButton } from "./MuiStyles/MuiStyles.jsx";
 import { setVisibleProducts } from "./store/actions.js";
@@ -14,6 +14,7 @@ const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
   const [productImages, setProductImages] = useState({});
   const [favorites, setFavorites] = useState([]);
   const [filtersApplied, setFiltersApplied] = useState(false);
+  const [ratingValues, setRatingValues] = useState({});
   const navigate = useNavigate();
   const productsPerPage = 2;
 
@@ -42,6 +43,12 @@ const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
     setSortOption("Sort");
     setSortAlphabetical("Sort");
     setFiltersApplied(false);
+  };
+  const handleRatingChange = (productId, newValue) => {
+    setRatingValues((prevValues) => ({
+      ...prevValues,
+      [productId]: newValue,
+    }));
   };
 
   useEffect(() => {
@@ -164,6 +171,15 @@ const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
                     navigate(`/product/${product.id}`);
                   }}
                 />
+                <div className="flex justify-center items-center mt-4">
+                  <Rating
+                    name={`rating-${product.id}`}
+                    value={ratingValues[product.id] || 0}
+                    onChange={(event, newValue) => {
+                      handleRatingChange(product.id, newValue);
+                    }}
+                  />
+                </div>
                 <FavoriteIcon
                   className={`absolute top-2 right-2 cursor-pointer z-10 ${
                     favorites.includes(product.id)
@@ -173,7 +189,7 @@ const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
                   onClick={() => toggleFavorite(product.id)}
                 />
               </div>
-              <p className="flex flex-col text-center">
+              <p className="flex flex-col text-center mb-4">
                 {product.name}
                 <span className="text-red-custom">${product.price}</span>
               </p>
