@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { connect } from "react-redux";
 import { MenuItem, Rating, Select } from "@mui/material";
 import { Favorite as FavoriteIcon } from "@mui/icons-material";
-import { CustomButton } from "./MuiStyles/MuiStyles.jsx";
+import { ButtonWithShadow } from "./MuiStyles/MuiStyles.jsx";
 import { setVisibleProducts } from "./store/actions.js";
 import products from "./data/data.js";
 
@@ -139,9 +139,9 @@ const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
       </div>
       <div className="flex justify-center mt-4">
         {filtersApplied && (
-          <CustomButton onClick={handleClearFilters}>
+          <ButtonWithShadow onClick={handleClearFilters}>
             Clear Filters
-          </CustomButton>
+          </ButtonWithShadow>
         )}
       </div>
       <div className="flex flex-col items-center mt-6">
@@ -187,7 +187,9 @@ const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
         </ul>
         {visibleProducts < sortedProducts.length && (
           <div className="mt-4">
-            <CustomButton onClick={handleLoadMore}>Load More</CustomButton>
+            <ButtonWithShadow onClick={handleLoadMore}>
+              Load More
+            </ButtonWithShadow>
           </div>
         )}
       </div>

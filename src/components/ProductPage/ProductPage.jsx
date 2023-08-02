@@ -7,7 +7,6 @@ import Footer from "../Footer/Footer.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import { AddToCartButton } from "../../MuiStyles/MuiStyles.jsx";
 import products from "../../data/data.js";
-import "react-toastify/dist/ReactToastify.css";
 
 const ProductPage = () => {
   let { id } = useParams();
@@ -32,14 +31,6 @@ const ProductPage = () => {
         });
     } else if (product.category === "Keyboard" && product.id === id) {
       import(`../../assets/${product.name}.jpg`)
-        .then((imageModule) => {
-          setProductImage(imageModule.default);
-        })
-        .catch((error) => {
-          console.error("Error loading image:", error);
-        });
-    } else if (product.image) {
-      import(product.image)
         .then((imageModule) => {
           setProductImage(imageModule.default);
         })

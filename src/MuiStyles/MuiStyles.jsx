@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
 import { Button, TextField } from "@mui/material";
 
-const CustomButton = styled(Button)({
+const ButtonWithShadow = styled(Button)({
   color: "#000000",
   backgroundColor: "#ffffff",
   "&:hover": {
@@ -47,4 +47,4 @@ const SearchField = styled(TextField)({
   },
 });
 
-export { CustomButton, AddToCartButton, SearchField };
+export { ButtonWithShadow, AddToCartButton, SearchField };
