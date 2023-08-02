@@ -180,7 +180,16 @@ const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
               </div>
               <p className="flex flex-col text-center mb-4">
                 {product.name}
-                <span className="text-red-custom">${product.price}</span>
+                <span className="text-red-custom">
+                  {product.id === 2 || product.id === 4 || product.id === 6 ? (
+                    <>
+                      <span className="line-through">${product.price}</span> $
+                      {product.price - 30}
+                    </>
+                  ) : (
+                    `$${product.price}`
+                  )}
+                </span>
               </p>
             </li>
           ))}

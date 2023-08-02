@@ -66,7 +66,16 @@ const ProductPage = () => {
             {product.name}
           </h1>
           <h2 className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-2xl text-red-custom">
-            {product.price} $
+            <span className="text-red-custom">
+              {product.id === 2 || product.id === 4 || product.id === 6 ? (
+                <>
+                  <span className="line-through">${product.price}</span> $
+                  {product.price - 30}
+                </>
+              ) : (
+                `$${product.price}`
+              )}
+            </span>
           </h2>
           <p className="mt-4 w-2/3 text-center whitespace-pre-line">
             {product.description}
