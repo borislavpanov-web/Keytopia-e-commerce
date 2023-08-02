@@ -55,18 +55,7 @@ const App = ({ visibleProducts, dispatchSetVisibleProducts }) => {
     const loadProductImages = async () => {
       const images = {};
       for (const product of products) {
-        const imageExtension = product.imageType === "jpg" ? "jpg" : "png";
-        if (product.category === "Switches") {
-          const imageModule = await import(
-            `./assets/MXSwitches/${product.name}.${imageExtension}`
-          );
-          images[product.id] = imageModule.default;
-          continue;
-        }
-        const imageModule = await import(
-          `./assets/image${product.id}.${imageExtension}`
-        );
-        images[product.id] = imageModule.default;
+        images[product.id] = product.image;
       }
       setProductImages(images);
     };

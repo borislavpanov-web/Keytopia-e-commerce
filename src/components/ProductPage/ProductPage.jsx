@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { IconButton, Rating } from "@mui/material";
+import { Rating } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
+import { successNotification } from "../Notifications/Notifications.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import { AddToCartButton } from "../../MuiStyles/MuiStyles.jsx";
 import products from "../../data/data.js";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductPage = () => {
   let { id } = useParams();
@@ -16,12 +18,12 @@ const ProductPage = () => {
   const product = products.find((product) => product.id === id);
 
   const handleAddToCart = () => {
-    console.log(`Product with ID ${id} added to the cart.`);
+    successNotification("Product added to cart");
   };
 
   useEffect(() => {
     if (product.category === "Switches" && product.id === id) {
-      import(`../../assets/MXSwitches/${product.name}.png`)
+      import(`../../assets/${product.name}.png`)
         .then((imageModule) => {
           setProductImage(imageModule.default);
         })
@@ -29,7 +31,15 @@ const ProductPage = () => {
           console.error("Error loading image:", error);
         });
     } else if (product.category === "Keyboard" && product.id === id) {
-      import(`../../assets/image${product.id}.jpg`)
+      import(`../../assets/${product.name}.jpg`)
+        .then((imageModule) => {
+          setProductImage(imageModule.default);
+        })
+        .catch((error) => {
+          console.error("Error loading image:", error);
+        });
+    } else if (product.image) {
+      import(product.image)
         .then((imageModule) => {
           setProductImage(imageModule.default);
         })
@@ -39,7 +49,7 @@ const ProductPage = () => {
     } else {
       console.error("Product not found in data.js");
     }
-  }, [id]);
+  }, [id, product]);
 
   return (
     <>
@@ -71,16 +81,15 @@ const ProductPage = () => {
             {product.description}
           </p>
         </div>
-        <div className="flex flex-col justify-center items-center py-4 sm:py-6 sm:px-24 md:px-36 lg:py-8 lg:px-40">
+        <div className="flex flex-col justify-center items-center w-full py-6 px-24 sm:py-6 sm:px-24 md:px-36 lg:py-8 lg:px-40">
           <AddToCartButton
             variant="contained"
             color="primary"
             className="w-full max-w-2/3 sm:max-w-full md:max-w-2/3"
+            onClick={handleAddToCart}
           >
             Add to Cart
-            <IconButton onClick={handleAddToCart}>
-              <ShoppingCart style={{ color: "white" }} />
-            </IconButton>
+            <ShoppingCart style={{ color: "white" }} />
           </AddToCartButton>
         </div>
       </div>

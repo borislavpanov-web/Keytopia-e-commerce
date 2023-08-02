@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import {
   IconButton,
   Paper,
@@ -16,6 +17,7 @@ const SearchBox = () => {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleSearch = (event) => {
     const searchText = event.target.value.toLowerCase();
@@ -38,6 +40,7 @@ const SearchBox = () => {
         label="Search"
         variant="standard"
         className="w-full"
+        inputProps={{ style: { textTransform: "none" } }}
         value={searchTerm}
         onChange={handleSearch}
       />
@@ -52,7 +55,10 @@ const SearchBox = () => {
                 <img
                   src={product.image}
                   alt={product.name}
-                  style={{ width: "50px", height: "50px", marginRight: "10px" }}
+                  className="w-24 h-12 mr-2 cursor-pointer"
+                  onClick={() => {
+                    navigate(`/product/${product.id}`);
+                  }}
                 />
                 <ListItemText primary={product.name} />
               </ListItem>

@@ -13,9 +13,7 @@ const PreviewPage = ({ visibleProducts }) => {
     async function loadSwitchImages() {
       const images = await Promise.all(
         switchTypes.map(async (type) => {
-          const module = await import(
-            `../../assets/MXSwitches/Cherry MX ${type}.png`
-          );
+          const module = await import(`../../assets/Cherry MX ${type}.png`);
           return module.default;
         }),
       );
