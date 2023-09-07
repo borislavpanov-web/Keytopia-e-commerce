@@ -5,7 +5,7 @@ Welcome to the Keytopia repository! <br/> This project is a streamlined design p
 ## Technologies Used
 
 1. <img height="35" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png"> React: JavaScript library for building user interfaces. <br/>
-2. <img height="35" src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png"> TypeScript: Superset of JavaScript that adds static typing. <br/>
+2. <img height="35" src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png"> JavaScript: Dynamic scripting language for web development. <br/>
 3. <img height="35" src="https://user-images.githubusercontent.com/25181517/202896760-337261ed-ee92-4979-84c4-d4b829c7355d.png"> Tailwind CSS: Utility-first CSS framework. <br/>
 4. <img height="35" src="https://github.com/marwin1991/profile-technology-icons/assets/62091613/b40892ef-efb8-4b0e-a6b5-d1cfc2f3fc35">  Vite: Fast build tool and development server. <br/>
 
